@@ -1,0 +1,12 @@
+name: Open Ecosystem Challenge Verifier
+description: Verifies if a certain Open Ecosystem challenge has been completed successfully
+inputs:
+  challenge:
+    description: The name of the challenge to verify. Must match the challenge folder name.
+    required: true
+runs:
+  using: node20
+  main: dist/index.js
+branding:
+  icon: award
+  color: green

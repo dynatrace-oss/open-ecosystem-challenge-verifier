@@ -1,0 +1,13 @@
+# MacOS filesystem
+.DS_Store
+
+# Editors
+.idea
+.vscode
+.zed
+
+# NodeJS
+node_modules
+.yalc
+
+.prompts

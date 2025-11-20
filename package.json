@@ -1,0 +1,28 @@
+{
+  "name": "open-ecosystem-challenge-verifier",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node esbuild.cjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dynatrace-oss/open-ecosystem-challenge-verifier.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Apache-2.0",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/dynatrace-oss/open-ecosystem-challenge-verifier/issues"
+  },
+  "homepage": "https://github.com/dynatrace-oss/open-ecosystem-challenge-verifier#readme",
+  "dependencies": {
+    "@actions/core": "^1.11.1",
+    "js-yaml": "^4.1.1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.27.0"
+  }
+}
