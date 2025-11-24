@@ -2,8 +2,8 @@ const core = require('@actions/core');
 const yaml = require('js-yaml');
 const fs = require('fs');
 
-const verifyAdventure1Easy = () => {
-  core.info('\u001b[38;5;6m\u001b[1m🚀 Adventure 01 | 🟢 Easy (Broken Echoes)'); // bold cyan
+const verifyAdventure1Beginner = () => {
+  core.info('\u001b[38;5;6m\u001b[1m🚀 Adventure 01 | 🟢 Beginner (Broken Echoes)'); // bold cyan
 
   const success = verify();
   if (success) {
@@ -15,7 +15,7 @@ const verifyAdventure1Easy = () => {
 
 const verify = () => {
   let success = true;
-  const appSetPath = 'adventures/01-echoes-lost-in-orbit/easy/manifests/appset.yaml';
+  const appSetPath = 'adventures/01-echoes-lost-in-orbit/beginner/manifests/appset.yaml';
   let appSet;
 
   // =====================================
@@ -74,7 +74,7 @@ const verify = () => {
   // Verifying objectives
   // ==========================================
   core.info('🎯 Verifying objectives...');
-  core.info(`  Details: https://dynatrace-oss.github.io/open-ecosystem-challenges/01-echoes-lost-in-orbit/easy/#objective`);
+  core.info(`  Details: https://dynatrace-oss.github.io/open-ecosystem-challenges/01-echoes-lost-in-orbit/beginner/#objective`);
 
   core.info('  - See two distinct Applications in the Argo CD dashboard (one per environment)');
   const appName = appSet.spec.template.metadata.name;
@@ -120,5 +120,5 @@ const verify = () => {
   return success;
 }
 
-module.exports = {verifyAdventure1Easy};
+module.exports = {verifyAdventure1Beginner};
 
