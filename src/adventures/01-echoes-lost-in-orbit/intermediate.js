@@ -77,7 +77,6 @@ const verify = () => {
       core.setFailed(`❌ The analysis template does not check for at least one ready container during rollout`);
       success = false;
     } else if (!prometheusProvider.query || !isValidReadyContainersQuery(prometheusProvider.query)) {
-      core.debug(`query: ${prometheusProvider.query}`)
       core.setFailed(`❌ The PromQL query to check for ready containers is incorrect or missing. It should check how many containers of echo-server pods are ready in the correct namespace.`);
       success = false;
     } else {
@@ -169,28 +168,23 @@ const isValidReadyContainersQuery = (query) => {
 
   // Normalize the query by removing all whitespace for easier checking
   const normalized = query.replace(/\s+/g, '');
-  core.debug(`normalized: ${normalized}`)
-
 
   // Must contain the core metric
   if (!normalized.includes('kube_pod_container_status_ready')) {
-    core.debug('1 failed')
     return false;
   }
 
   // Must have namespace filter with the args placeholder
   if (!normalized.includes('namespace="{{args.namespace}}"')) {
-    core.debug('2 failed')
     return false;
   }
 
   // Must have pod filter with the echo-server pattern
   if (!normalized.includes('pod=~"echo-server-.*"')) {
-    core.debug('3 failed')
     return false;
   }
 
-  return normalized.startsWith('sum(') || normalized.startsWith('count(');
+  return normalized.includes('sum(') || normalized.includes('count(');
 };
 
 module.exports = { verifyAdventure1Intermediate };
