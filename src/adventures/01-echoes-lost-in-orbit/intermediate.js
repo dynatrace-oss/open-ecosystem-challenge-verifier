@@ -184,9 +184,7 @@ const isValidReadyContainersQuery = (query) => {
     return false;
   }
 
-  // Should have an aggregation function to return a single value
-  // Accept sum() (sums ready=1 values) or count() (counts time series)
-  return /^(sum|count)\(/.test(normalized);
+  return normalized.startsWith('sum(') || normalized.startsWith('count(');
 };
 
 module.exports = { verifyAdventure1Intermediate };
