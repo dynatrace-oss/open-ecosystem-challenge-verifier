@@ -184,7 +184,7 @@ const isValidReadyContainersQuery = (query) => {
     return false;
   }
 
-  return normalized.includes('sum(') || normalized.includes('count(');
+  return normalized.includes('sum(') || normalized.includes('count(') || normalized.includes('max(');
 };
 
 module.exports = { verifyAdventure1Intermediate };
