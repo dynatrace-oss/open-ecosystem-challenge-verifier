@@ -42,7 +42,7 @@ const verify = () => {
   core.info('🎯 Verifying objectives...');
   core.info(`  Details: https://dynatrace-oss.github.io/open-ecosystem-challenges/02-building-cloudhaven/intermediate/#objective`);
 
-  core.info('  - All tests of the districts module pass');
+  core.info('  - 🔬 Objective 1: All tests of the districts module pass');
 
   // Check if user_labels uses merge with local.common_labels
   // Remove all whitespace for comparison to handle different formatting
@@ -51,6 +51,9 @@ const verify = () => {
 
   if (!usesMergeWithCommonLabels) {
     core.setFailed('❌ tests/ledger.tftest.hcl is failing');
+    core.info('    💡 Hint: The ledger should reuse the common labels defined in the module,');
+    core.info('       not hardcode them. Look for a way to combine the common labels with');
+    core.info('       ledger-specific ones.');
     success = false;
     failedChecks.push('user_labels_not_using_merge_common_labels');
   } else {
@@ -64,6 +67,7 @@ const verify = () => {
 
   if (!hasUsCentral1) {
     core.setFailed('❌ tests/vault.tftest.hcl is failing');
+    core.info('    💡 Hint: Make sure all regions used in CloudHaven are supported in the location map.');
     success = false;
     failedChecks.push('location_map_missing_us_central1');
   } else {
@@ -73,10 +77,11 @@ const verify = () => {
   // Check if validation condition uses can(regex(...))
   // Remove all whitespace for comparison to handle different formatting
   const normalizedVariables = moduleVariables.replace(/\s+/g, '');
-  const usesCanRegex = normalizedVariables.includes('condition=can(regex(');
+  const usesCanRegex = normalizedVariables.includes('can(regex(');
 
   if (!usesCanRegex) {
     core.setFailed('❌ tests/variables.tftest.hcl is failing');
+    core.info('    💡 Hint: Variable validation should use a regex pattern to check the input format.');
     success = false;
     failedChecks.push('validation_not_using_regex');
   } else {
@@ -86,7 +91,7 @@ const verify = () => {
   // ====================
   // Objective 2: Integration test
   // ====================
-  core.info('  - A completed integration test that applies infrastructure against the mock GCP API');
+  core.info('  - 🔬 Objective 2: A completed integration test that applies infrastructure against the mock GCP API');
 
   // Remove all whitespace for comparison to handle different formatting
   const normalizedIntegration = integrationTest.replace(/\s+/g, '');
@@ -116,6 +121,18 @@ const verify = () => {
 
   if (!allConditionsMet) {
     core.setFailed('❌ tests/integration.tftest.hcl is failing');
+    core.info('    💡 Hint: Your integration test should verify the following for each district:');
+    core.info('       - Vault names follow the pattern: cloudhaven-{district-name}-vault');
+    core.info('       - Ledger disk sizes match the tier configuration');
+    if (!hasApplyCommand) {
+      core.info('    ⚠️  Missing: The test should actually apply the infrastructure, not just plan it');
+    }
+    if (!hasNorthMarketVault || !hasSouthBazaarVault || !hasScholarsDistrictVault) {
+      core.info('    ⚠️  Missing: Vault name assertions for one or more districts');
+    }
+    if (!hasNorthMarketDiskSize || !hasSouthBazaarDiskSize || !hasScholarsDistrictDiskSize) {
+      core.info('    ⚠️  Missing: Disk size assertions for one or more districts');
+    }
     success = false;
     failedChecks.push('integration_test_incomplete');
   } else {
@@ -125,7 +142,7 @@ const verify = () => {
   // ====================
   // Objective 3: Three districts deployed
   // ====================
-  core.info('  - Three districts deployed with correctly configured infrastructure (vaults and ledgers)');
+  core.info('  - 🔬 Objective 3: Three districts deployed with correctly configured infrastructure (vaults and ledgers)');
   if (success) {
     core.info('    ✅ Infrastructure can be applied successfully if all other objectives are met');
   } else {
