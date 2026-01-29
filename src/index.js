@@ -4,6 +4,7 @@ const {verifyAdventure1Intermediate} = require("./adventures/01-echoes-lost-in-o
 const {verifyAdventure1Expert} = require("./adventures/01-echoes-lost-in-orbit/expert");
 const {verifyAdventure2Beginner} = require("./adventures/02-building-cloudhaven/beginner");
 const {verifyAdventure2Intermediate} = require("./adventures/02-building-cloudhaven/intermediate");
+const {verifyAdventure2Expert} = require("./adventures/02-building-cloudhaven/expert");
 
 const challenge = core.getInput('challenge');
 
@@ -18,6 +19,8 @@ const challenge = core.getInput('challenge');
         await verifyAdventure2Beginner();
     } else if (challenge === '02-building-cloudhaven_intermediate') {
         await verifyAdventure2Intermediate();
+    } else if (challenge === '02-building-cloudhaven_expert') {
+        await verifyAdventure2Expert();
     } else {
         core.setFailed("❌ Invalid challenge specified.");
     }
