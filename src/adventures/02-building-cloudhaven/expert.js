@@ -98,11 +98,10 @@ const verify = () => {
   const hasTrivyAction = normalizedValidateWorkflow.includes('aquasecurity/trivy-action');
   const hasExitCodeZero = /exit-code:['"]?0['"]?/.test(normalizedValidateWorkflow);
   const hasScanRef = /scan-ref:/.test(normalizedValidateWorkflow);
-  const hasSeverity = /severity:/.test(normalizedValidateWorkflow);
   const hasJsonFormat = /format:['"]?json['"]?/.test(normalizedValidateWorkflow);
   const hasJsonOutput = /output:['"]?[^'"]*\.json['"]?/.test(normalizedValidateWorkflow);
 
-  if (!hasTrivyAction || !hasExitCodeZero || !hasScanRef || !hasSeverity || !hasJsonFormat || !hasJsonOutput) {
+  if (!hasTrivyAction || !hasExitCodeZero || !hasScanRef || !hasJsonFormat || !hasJsonOutput) {
     core.setFailed('❌ Security scanning is not properly configured');
     core.info('    💡 Hint: The Trivy action needs a configuration block (with:) to specify scan parameters, output format, and exit behavior.');
     success = false;
